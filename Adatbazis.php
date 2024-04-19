@@ -20,7 +20,8 @@ class Adatbazis {
             $siker = "Nem sikerült a kapcsolat";
         } else
             $siker = "Sikerült a kapcsolat";
-        echo $siker;
+        //echo $siker;
+        $this->kapcsolat->query("SET NAMES UTF8");
     }
     //metódusok
     public function adatLeker($oszlop, $tabla){
@@ -40,12 +41,31 @@ class Adatbazis {
         return $this->kapcsolat->query($sql);
     }
     public function megjelenit2($matrix){
+        echo "<table>";
+        echo "<tr><th>NÉV</th><th>KÉP</th></tr>";
         while ($sor = $matrix->fetch_row()){
-            echo "<img src=\"forras/$sor[0]\" alt=\"forras/$sor[0]\">";
+            echo "<tr><td>$sor[0]</td><td><img src=\"forras/$sor[0]\" alt=\"forras/$sor[0]\"></td></tr>";
         }
+        echo "</table>";
     }
 
-    
+
+
+    /* public function modosit(){
+        $sql = "";                                  -> ez egy jó alap 
+        return $this->kapcsolat->query($sql);
+    } */
+    public function modosit($tabla, $oszlop, $regiErtek, $ujErtek){
+        $sql = "UPDATE $tabla SET $oszlop='$ujErtek' WHERE $oszlop='$regiErtek'";
+        return $this->kapcsolat->query($sql);
+    }
+
+    public function torles($tabla, $oszlop, $ertek){
+        $sql = "DELETE FROM $tabla WHERE $oszlop='$ertek'";
+        return $this->kapcsolat->query($sql);
+    } 
+
+
 
     public function rekordokSzama($tabla){
         $sql = "SELECT * FROM $tabla";

@@ -13,8 +13,14 @@
     <?php
         $adatbazis = new Adatbazis();
         //lekérdezések:
-        $matrix = $adatbazis->adatLeker("kep", "szin");
-        $adatbazis->megjelenit($matrix);
+        /* $matrix = $adatbazis->adatLeker("kep", "szin");
+        $adatbazis->megjelenit($matrix); */
+        //modosit($tabla, $oszlop, $regiErtek, $ujErtek)
+        $adatbazis->modosit("szin", "nev", "green", "zold");
+        //torles($tabla, $oszlop, $ertek)
+        $adatbazis->torles("szin", "nev", "zold");
+        $matrix = $adatbazis->adatLeker2("nev","kep", "szin");
+        $adatbazis->megjelenit2($matrix);
         if($adatbazis->rekordokSzama("kartya") == 0){
             $adatbazis->kartyaFeltolt();
         }
